@@ -3,7 +3,6 @@ import './RegistrationForm.css';
 import FormFooter from './FormFooter';
 import FieldInput from './FieldInput';
 import SelectField from './SelectField';
-import axios from 'axios';
 
 const initialState = {
     name: '',
@@ -36,23 +35,13 @@ const RegistrationForm = () => {
     const [formData, dispatch] = useReducer(formReducer, initialState);
 
 
-    const isNameValid = formData.name.trim() !== '';
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
-    const isMobileNumberValid = /^\d{10}$/.test(formData.mobileNumber);
-    const isCurrentCompanyValid = formData.currentCompany.trim() !== '';
-    const isLinkedinUrlValid = formData.linkedInUrl.trim() !== '';
-
-
-    const isFormValid = isNameValid && isEmailValid && isMobileNumberValid && isLinkedinUrlValid && isCurrentCompanyValid;
-
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         dispatch({ type: 'CHANGE', name, value });
     };
 
-    const currentYear = new Date().getFullYear();
     const years = [];
+    const currentYear = new Date().getFullYear();
     for (let year = 2000; year <= currentYear; year++) {
         years.push(year);
     }
@@ -69,10 +58,6 @@ const RegistrationForm = () => {
             currentCompany: formData.currentCompany
         }
 
-        console.log(data);
-
-        const response = await axios.post(`http://localhost:5000/addData`, data);
-        console.log(response);
 
 
         console.log('Name:', formData.name);
@@ -84,7 +69,7 @@ const RegistrationForm = () => {
 
     return (
         <>
-            <div className='RegistrationForm'>
+            <div className='registrationForm'>
                 <div className="form-container">
                     <div className="form-Head">
                         <h2 className="form-title">Alumni Registration Form </h2>
@@ -98,7 +83,6 @@ const RegistrationForm = () => {
                             type="text"
                             value={formData.name}
                             touched={formData.nameTouched}
-                            valid={isNameValid}
                             onChange={handleChange}
                         />
 
@@ -108,7 +92,6 @@ const RegistrationForm = () => {
                             type="email"
                             value={formData.email}
                             touched={formData.emailTouched}
-                            valid={isEmailValid}
                             onChange={handleChange}
                         />
 
@@ -117,7 +100,6 @@ const RegistrationForm = () => {
                             name="passoutYear"
                             value={formData.passoutYear}
                             touched={formData.passoutYearTouched}
-                            valid={formData.passoutYear !== ''}
                             options={years}
                             onChange={handleChange}
                         />
@@ -128,7 +110,6 @@ const RegistrationForm = () => {
                             type="text"
                             value={formData.mobileNumber}
                             touched={formData.mobileNumberTouched}
-                            valid={isMobileNumberValid}
                             onChange={handleChange}
                         />
 
@@ -138,7 +119,6 @@ const RegistrationForm = () => {
                             type="text"
                             value={formData.linkedInUrl}
                             touched={formData.linkedinUrlTouched}
-                            valid={isLinkedinUrlValid}
                             onChange={handleChange}
                         />
 
@@ -149,11 +129,10 @@ const RegistrationForm = () => {
                             type="text"
                             value={formData.currentCompany}
                             touched={formData.currentCompanyTouched}
-                            valid={isCurrentCompanyValid}
                             onChange={handleChange}
                         />
 
-                        <FormFooter onSubmit={handleSubmit} isFormValid={isFormValid} />
+                        <FormFooter onSubmit={handleSubmit} />
                     </form>
                 </div>
             </div>

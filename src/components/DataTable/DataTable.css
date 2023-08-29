@@ -1,0 +1,58 @@
+.select-year{
+    width: auto !important;
+    margin: 0 !important;
+}
+
+
+.data-table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: #F4F5FB;
+    min-height: 60vh;
+    padding: 5rem 10rem;
+}
+
+table {
+    width: max-content;
+    border-collapse: collapse;
+    background-color: white;
+    margin: 2rem 0; 
+    min-width: 75%;   
+    width: 100%;   
+}
+
+thead {
+    background-color: #f4f5fb;
+}
+
+tr{
+    border: 1px solid #d6d9df;
+}
+
+th,
+td {
+    padding: 12px;
+    /* border: 1px solid #d6d9df; */
+    text-align: center;
+    font-size: 1.4rem;
+    width: ;
+    max-width: 1vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+
+th {
+    font-weight: 600;
+    color: #16192c;
+}
+
+.MuiSvgIcon-root {
+    font-size: 2rem !important;
+    color: #007bff;
+    cursor: pointer;
+}
+

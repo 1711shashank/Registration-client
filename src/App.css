@@ -39,15 +39,18 @@
 .navbar {
   height: 8rem;
   background-color: #2D3748;
-  padding: 1.2rem 10rem;
+  padding: 1.2rem 8rem;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
-.navbar>p {
+.navbar>* {
   font-size: 1.5rem;
   font-weight: 500;
   color: white;
+  margin: 0 2rem;
+  text-decoration: none;
 }
 
 /* Footer */
