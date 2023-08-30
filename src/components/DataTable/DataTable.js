@@ -3,6 +3,7 @@ import './DataTable.css';
 import { Link } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import axios from 'axios';
+import { getFilteredData, getYears } from '../helperFunction/helperFunction';
 
 const DataTable = ({ dummyData }) => {
 
@@ -20,27 +21,14 @@ const DataTable = ({ dummyData }) => {
         fetchData();
     }, [])
 
+    const years = getYears();
+    const filteredData = getFilteredData(selectedYear, data);
 
-    const handleYearChange = (event) => {
-        setSelectedYear(event.target.value);
-    };
-
-    const years = [];
-    const currentYear = new Date().getFullYear();
-    for (let year = 2000; year <= currentYear; year++) {
-        years.push(year);
-    }
-
-
-
-    const filteredData = selectedYear
-        ? data.filter((item) => item.passoutYear === selectedYear)
-        : data;
 
     return (
         <div className="data-table">
 
-            <select onChange={handleYearChange} className='form-input select-year' >
+            <select onChange={(e) => setSelectedYear(e.target.value)} className='form-input select-year' >
                 <option value="">Select Batch</option>
                 {years.map((item, index) => (
                     <option className="option" key={index}>{item}</option>

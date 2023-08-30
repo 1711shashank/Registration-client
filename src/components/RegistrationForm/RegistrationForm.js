@@ -4,56 +4,26 @@ import FormFooter from './FormFooter';
 import FieldInput from './FieldInput';
 import SelectField from './SelectField';
 import axios from 'axios';
-
-const initialState = {
-    name: '',
-    email: '',
-    passoutYear: '',
-    mobileNumber: '',
-    currentCompany: '',
-    linkedInUrl: '',
-    nameTouched: false,
-    emailTouched: false,
-    passoutYearTouched: false,
-    mobileNumberTouched: false,
-    currentCompanyTouched: false,
-    linkedInUrlTouched: false
-};
-
-const formReducer = (state, action) => {
-    switch (action.type) {
-        case 'CHANGE':
-            return { ...state, [action.name]: action.value, [`${action.name}Touched`]: true };
-        default:
-            return state;
-    }
-};
+import { formReducer, getYears, initialState } from '../helperFunction/helperFunction';
 
 
 const RegistrationForm = () => {
-
+    
     const [formData, dispatch] = useReducer(formReducer, initialState);
-
+    
+    const years = getYears();
     const isNameValid = formData.name.trim() !== '';
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
     const isMobileNumberValid = /^\d{10}$/.test(formData.mobileNumber);
     const isCurrentCompanyValid = formData.currentCompany.trim() !== '';
     const isLinkedInUrlValid = formData.linkedInUrl.trim() !== '';
 
-
     const isFormValid = isNameValid && isEmailValid && isMobileNumberValid && isLinkedInUrlValid && isCurrentCompanyValid;
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         dispatch({ type: 'CHANGE', name, value });
     };
-
-    const years = [];
-    const currentYear = new Date().getFullYear();
-    for (let year = 2000; year <= currentYear; year++) {
-        years.push(year);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,8 +36,6 @@ const RegistrationForm = () => {
             linkedInUrl: formData.linkedInUrl,
             currentCompany: formData.currentCompany
         }
-
-        console.log(data);
 
         axios.post('http://localhost:5000/addData', { data });
 
