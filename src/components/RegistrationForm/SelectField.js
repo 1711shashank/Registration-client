@@ -13,9 +13,9 @@ const SelectField = ({ label, name, value, touched, valid, options, onChange }) 
             required
             className={`form-input ${!touched ? 'default' : valid ? 'valid' : 'invalid'}`}
         >
-            <option value="">Select Year</option>
+            <option className="option" value="">Select Year</option>
             {options.map((year) => (
-                <option key={year} value={year}>
+                <option className="option" key={year} value={year}>
                     {year}
                 </option>
             ))}
