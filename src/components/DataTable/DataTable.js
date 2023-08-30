@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DataTable.css';
 import { Link } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import SelectField from '../RegistrationForm/SelectField';
+import axios from 'axios';
 
-const DataTable = ({ data }) => {
+const DataTable = ({ dummyData }) => {
+
+    const [data, setData] = useState(dummyData);
     const [selectedYear, setSelectedYear] = useState('');
+
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:5000/getData');
+        console.log(response.data.profileData);
+        setData(response.data.profileData);
+    }
+
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
 
     const handleYearChange = (event) => {
         setSelectedYear(event.target.value);
@@ -17,25 +31,22 @@ const DataTable = ({ data }) => {
         years.push(year);
     }
 
+
+
     const filteredData = selectedYear
         ? data.filter((item) => item.passoutYear === selectedYear)
         : data;
 
     return (
         <div className="data-table">
-            <select
-                value={'value'}
-                onChange={handleYearChange}
-                required
-                className='form-input select-year'
-            >
+
+            <select onChange={handleYearChange} className='form-input select-year' >
                 <option value="">Select Batch</option>
-                {years.map((year) => (
-                    <option key={year} value={year}>
-                        {year}
-                    </option>
+                {years.map((item, index) => (
+                    <option className="option" key={index}>{item}</option>
                 ))}
             </select>
+
             <table>
                 <thead>
                     <tr>

@@ -20,8 +20,6 @@ const initialState = {
     linkedInUrlTouched: false
 };
 
-
-
 const formReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE':
@@ -35,7 +33,6 @@ const formReducer = (state, action) => {
 const RegistrationForm = () => {
 
     const [formData, dispatch] = useReducer(formReducer, initialState);
-
 
     const isNameValid = formData.name.trim() !== '';
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
@@ -52,8 +49,8 @@ const RegistrationForm = () => {
         dispatch({ type: 'CHANGE', name, value });
     };
 
-    const currentYear = new Date().getFullYear();
     const years = [];
+    const currentYear = new Date().getFullYear();
     for (let year = 2000; year <= currentYear; year++) {
         years.push(year);
     }

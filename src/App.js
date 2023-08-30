@@ -53,7 +53,7 @@ function App() {
             <Routes >
 
                 <Route path="/register" element={<RegistrationForm />} />
-                <Route path="/" element={<DataTable data={dummyData} />} />
+                <Route path="/" element={<DataTable dummyData={dummyData} />} />
 
             </Routes>
             <Footer />
